@@ -205,6 +205,8 @@ class DraftOrderCreate(
         channel = cls.clean_channel_id(info, instance, cleaned_input, channel_id)
 
         voucher = cleaned_input.get("voucher", None)
+        voucher_code = cleaned_input.get("voucher_code", None)
+        cls.clean_voucher_and_voucher_code(voucher, voucher_code)
         if voucher:
             cls.clean_voucher(voucher, channel)
 
@@ -254,6 +256,19 @@ class DraftOrderCreate(
                     "voucher": ValidationError(
                         "Voucher not available for this order.",
                         code=OrderErrorCode.NOT_AVAILABLE_IN_CHANNEL.value,
+                    )
+                }
+            )
+
+    @classmethod
+    def clean_voucher_and_voucher_code(cls, voucher, voucher_code):
+        if voucher and voucher_code:
+            raise ValidationError(
+                {
+                    "voucher": ValidationError(
+                        "You cannot use both a voucher and a voucher code for the same "
+                        "order. Please choose one.",
+                        code=OrderErrorCode.INVALID.value,
                     )
                 }
             )

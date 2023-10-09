@@ -46,7 +46,7 @@ def send_order_updated(order_ids):
 
 def _bulk_release_voucher_usage(order_ids):
     voucher_orders = Order.objects.filter(
-        voucher_code__voucher=OuterRef("voucher_id"),
+        voucher_code_id=OuterRef("id"),
         id__in=order_ids,
     )
     count_orders = voucher_orders.annotate(
