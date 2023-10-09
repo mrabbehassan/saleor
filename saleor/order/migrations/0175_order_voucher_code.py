@@ -6,7 +6,7 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
     dependencies = [
-        ("discount", "0058_voucher_single_use"),
+        ("discount", "0059_voucher_single_use"),
         ("order", "0174_order_idx_order_created_at"),
     ]
 
