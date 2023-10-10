@@ -11,6 +11,13 @@ mutation VoidOrder ($id:ID!){
     order {
       id
       status
+      payments {
+        id
+      }
+      statusDisplay
+      events {
+        type
+      }
     }
   }
 }
